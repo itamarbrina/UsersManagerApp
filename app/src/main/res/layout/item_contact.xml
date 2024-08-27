@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,15 +15,13 @@
         android:padding="16dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_view"
+            android:id="@+id/profileImageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:shapeAppearance="@style/circleImageView"
             app:strokeColor="@color/md_theme_primary"
-            app:strokeWidth="0.5dp"
-            tools:src="@tools:sample/avatars" />
-        <!-- TODO           android:contentDescription="@string/content_description_media"-->
-        <!--            app:srcCompat="" />-->
+            app:strokeWidth="0.5dp" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,13 +31,14 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/titleTextView"
+                android:id="@+id/contactNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="@color/md_theme_primary" />
 
             <TextView
+                android:id="@+id/phoneNumberTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -48,6 +46,7 @@
                 android:textColor="@color/md_theme_secondary" />
 
             <TextView
+                android:id="@+id/emailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
@@ -61,7 +60,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/edit_contact_button"
+                android:id="@+id/editContactButton"
                 style="?attr/materialIconButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +68,7 @@
                 app:icon="@drawable/ic_edit" />
 
             <Button
-                android:id="@+id/delete_contact_button"
+                android:id="@+id/deleteContactButton"
                 style="?attr/materialIconButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
