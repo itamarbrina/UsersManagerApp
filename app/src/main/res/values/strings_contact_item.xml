@@ -1,0 +1,4 @@
+<resources>
+    <string name="edit_contact_button">Edit Button</string>
+    <string name="delete_contact_button">Delete Button</string>
+</resources>
