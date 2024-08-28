@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.UsersManagerApp" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.UsersManagerApp" parent="Theme.Material3.Dark">
         <!-- Primary brand color. -->
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <!-- Secondary brand color. -->
