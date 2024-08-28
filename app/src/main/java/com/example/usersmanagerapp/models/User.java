@@ -3,30 +3,39 @@ package com.example.usersmanagerapp.models;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "USERS")
 public class User {
 
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private int id;
 
     @SerializedName("email")
     @Expose
+    @ColumnInfo(name = "email")
     private String email;
 
     @SerializedName("first_name")
     @Expose
+    @ColumnInfo(name = "first_name")
     private String firstName;
 
     @SerializedName("last_name")
     @Expose
+    @ColumnInfo(name = "last_name")
     private String lastName;
 
     @SerializedName("avatar")
     @Expose
+    @ColumnInfo(name = "avatar")
     private String imageUrl;
 
     public int getId() {

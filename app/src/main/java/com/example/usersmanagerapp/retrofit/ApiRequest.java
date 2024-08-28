@@ -7,9 +7,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiRequest {
-    @GET("api/users?page=1")
+    @GET("api/users")
     Call<UsersResponse> getUsers(
             @Query("page")
             int numPage
     );
+
+    default Call<UsersResponse> getUsers() {
+        return getUsers(1);
+    }
 }

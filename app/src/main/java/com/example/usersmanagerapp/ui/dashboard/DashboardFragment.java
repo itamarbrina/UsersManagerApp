@@ -41,7 +41,7 @@ public class DashboardFragment extends Fragment {
 
         dashboardViewModel.getProgressBarLiveData().observe(getViewLifecycleOwner(), progressBar::setVisibility);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        userAdapter = new UserAdapter(getContext(), userArrayList);
+        userAdapter = new UserAdapter(userArrayList);
         recyclerView.setAdapter(userAdapter);
         recyclerView.setHasFixedSize(true);
 
