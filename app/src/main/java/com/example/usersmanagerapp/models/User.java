@@ -15,7 +15,7 @@ public class User {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @SerializedName("email")
@@ -40,6 +40,10 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
