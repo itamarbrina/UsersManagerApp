@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context=".ui.edit_user.EditUserFragment">
+    tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
         android:id="@+id/editUserHeader"

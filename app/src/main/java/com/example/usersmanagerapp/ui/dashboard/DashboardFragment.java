@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.usersmanagerapp.R;
 import com.example.usersmanagerapp.adapter.OnRecycleViewItemClickListener;
 import com.example.usersmanagerapp.adapter.UserAdapter;
 import com.example.usersmanagerapp.databinding.DialogEditUserBinding;
@@ -81,14 +82,15 @@ public class DashboardFragment extends Fragment {
     }
 
     private void showEditUserDialog(int position) {
+        DialogEditUserBinding dialogBinding = DialogEditUserBinding.inflate(getLayoutInflater());
         User user = null;
         if (position == -1) {
+            dialogBinding.editUserHeader.setText(getText(R.string.add_user));
             user = new User();
             user.setId(userArrayList.get(userArrayList.size() - 1).getId() + 1);
         } else {
             user = userArrayList.get(position);
         }
-        DialogEditUserBinding dialogBinding = DialogEditUserBinding.inflate(getLayoutInflater());
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(dialogBinding.getRoot());
 
