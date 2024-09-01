@@ -108,10 +108,10 @@ public class DashboardFragment extends Fragment {
 
             Map<String, String> errorMessages = new HashMap<>();
 
-            finalUser.setFirstName(dialogBinding.editTextFirstName.getText().toString().trim());
-            finalUser.setLastName(dialogBinding.editTextLastName.getText().toString().trim());
-            finalUser.setEmail(dialogBinding.editTextEmail.getText().toString().trim());
-            finalUser.setImageUrl(dialogBinding.editTextImage.getText().toString().trim());
+            finalUser.setFirstName(Objects.requireNonNull(dialogBinding.editTextFirstName.getText()).toString().trim());
+            finalUser.setLastName(Objects.requireNonNull(dialogBinding.editTextLastName.getText()).toString().trim());
+            finalUser.setEmail(Objects.requireNonNull(dialogBinding.editTextEmail.getText()).toString().trim());
+            finalUser.setImageUrl(Objects.requireNonNull(dialogBinding.editTextImage.getText()).toString().trim());
 
             // Use the ViewModel to validate the user
             boolean isValid = dashboardViewModel.isUserValid(finalUser, errorMessages);
