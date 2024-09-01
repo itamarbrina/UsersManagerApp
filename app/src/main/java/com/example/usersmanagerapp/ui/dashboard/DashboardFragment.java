@@ -20,6 +20,7 @@ import com.example.usersmanagerapp.databinding.FragmentDashboardBinding;
 import com.example.usersmanagerapp.models.User;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
 
@@ -39,6 +40,7 @@ public class DashboardFragment extends Fragment {
 
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerView;
+        binding.buttonAddUser.setOnClickListener(v -> showEditUserDialog(-1));
 
 
         setupRecyclerView();
@@ -53,7 +55,6 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onEditClick(int position) {
                 showEditUserDialog(position);
-                userAdapter.notifyItemChanged(position);
             }
 
             @Override
@@ -80,7 +81,13 @@ public class DashboardFragment extends Fragment {
     }
 
     private void showEditUserDialog(int position) {
-        User user = userArrayList.get(position);
+        User user = null;
+        if (position == -1) {
+            user = new User();
+            user.setId(userArrayList.get(userArrayList.size() - 1).getId() + 1);
+        } else {
+            user = userArrayList.get(position);
+        }
         DialogEditUserBinding dialogBinding = DialogEditUserBinding.inflate(getLayoutInflater());
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(dialogBinding.getRoot());
@@ -92,6 +99,7 @@ public class DashboardFragment extends Fragment {
 
         AlertDialog dialog = builder.create();
 
+        User finalUser = user;
         dialogBinding.buttonSaveUser.setOnClickListener(v -> {
 
             dialogBinding.editTextFirstNameLayout.setError(null);
@@ -99,35 +107,40 @@ public class DashboardFragment extends Fragment {
             dialogBinding.editTextEmailLayout.setError(null);
             dialogBinding.editTextImageLayout.setError(null);
 
-            user.setImageUrl(dialogBinding.editTextImage.getText().toString().trim());
-            user.setFirstName(dialogBinding.editTextFirstName.getText().toString().trim());
-            user.setLastName(dialogBinding.editTextLastName.getText().toString().trim());
-            user.setEmail(dialogBinding.editTextEmail.getText().toString().trim());
+            finalUser.setImageUrl(Objects.requireNonNull(dialogBinding.editTextImage.getText()).toString().trim());
+            finalUser.setFirstName(Objects.requireNonNull(dialogBinding.editTextFirstName.getText()).toString().trim());
+            finalUser.setLastName(Objects.requireNonNull(dialogBinding.editTextLastName.getText()).toString().trim());
+            finalUser.setEmail(Objects.requireNonNull(dialogBinding.editTextEmail.getText()).toString().trim());
             boolean isValid = true;
 
-            if (user.getFirstName().isEmpty()) {
+            if (finalUser.getFirstName().isEmpty()) {
                 dialogBinding.editTextFirstNameLayout.setError("First name is required");
                 isValid = false;
             }
 
-            if (user.getLastName().isEmpty()) {
+            if (finalUser.getLastName().isEmpty()) {
                 dialogBinding.editTextLastNameLayout.setError("Last name is required");
                 isValid = false;
             }
 
-            if (user.getEmail().isEmpty()) {
+            if (finalUser.getEmail().isEmpty()) {
                 dialogBinding.editTextEmailLayout.setError("Email is required");
                 isValid = false;
             }
 
-            if (user.getImageUrl().isEmpty()) {
+            if (finalUser.getImageUrl().isEmpty()) {
                 dialogBinding.editTextImageLayout.setError("Image URL is required");
                 isValid = false;
             }
 
             if (isValid) {
-                dashboardViewModel.insertUser(user);
-                userAdapter.notifyItemChanged(userArrayList.indexOf(user));
+                dashboardViewModel.insertUser(finalUser);
+                if (position == -1) {
+                    userArrayList.add(finalUser);
+                    userAdapter.notifyItemInserted(userArrayList.size() - 1);
+                } else {
+                    userAdapter.notifyItemChanged(position);
+                }
                 dialog.dismiss();
             }
         });
