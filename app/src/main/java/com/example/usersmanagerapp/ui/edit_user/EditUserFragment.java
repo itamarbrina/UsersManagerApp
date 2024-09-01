@@ -1,4 +1,4 @@
-package com.example.usersmanagerapp.ui.notifications;
+package com.example.usersmanagerapp.ui.edit_user;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.usersmanagerapp.databinding.FragmentNotificationsBinding;
+import com.example.usersmanagerapp.databinding.FragmentEditUserBinding;
 
-public class NotificationsFragment extends Fragment {
+public class EditUserFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentEditUserBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        EditUserViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(EditUserViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentEditUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
