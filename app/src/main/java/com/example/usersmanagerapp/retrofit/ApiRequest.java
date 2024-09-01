@@ -12,8 +12,4 @@ public interface ApiRequest {
             @Query("page")
             int numPage
     );
-
-    default Call<UsersResponse> getUsers() {
-        return getUsers(1);
-    }
 }

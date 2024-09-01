@@ -15,6 +15,9 @@ public interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUsers(List<User> users);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertUser(User user);
+
     @Query("SELECT * FROM USERS")
     List<User> getUsers();
 

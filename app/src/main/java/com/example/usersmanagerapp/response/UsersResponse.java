@@ -30,12 +30,6 @@ public class UsersResponse {
     @Expose
     private List<User> users;
 
-    @SerializedName("support")
-    @Expose
-    private Support support;
-
-    // Getters and setters for all fields
-
     public int getPage() {
         return page;
     }
@@ -76,14 +70,6 @@ public class UsersResponse {
         this.users = users;
     }
 
-    public Support getSupport() {
-        return support;
-    }
-
-    public void setSupport(Support support) {
-        this.support = support;
-    }
-
     @NonNull
     @Override
     public String toString() {
@@ -93,44 +79,7 @@ public class UsersResponse {
                 ", total=" + total +
                 ", totalPages=" + totalPages +
                 ", users=" + users +
-                ", support=" + support +
                 '}';
     }
 
-    // Inner class to represent the "support" object
-    public static class Support {
-
-        @SerializedName("url")
-        @Expose
-        private String url;
-
-        @SerializedName("text")
-        @Expose
-        private String text;
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return "Support{" +
-                    "url='" + url + '\'' +
-                    ", text='" + text + '\'' +
-                    '}';
-        }
-    }
 }

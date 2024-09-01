@@ -13,27 +13,25 @@ import com.example.usersmanagerapp.models.User;
 import java.util.ArrayList;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
-    ArrayList<User> userArrayList;
+    private final ArrayList<User> userArrayList;
+    private final OnRecycleViewItemClickListener onRecycleViewItemClickListener;
 
-    public UserAdapter(ArrayList<User> userArrayList) {
+    public UserAdapter(ArrayList<User> userArrayList, OnRecycleViewItemClickListener onRecycleViewItemClickListener) {
         this.userArrayList = userArrayList;
+        this.onRecycleViewItemClickListener = onRecycleViewItemClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemContactBinding binding = ItemContactBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, onRecycleViewItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userArrayList.get(position);
-        holder.binding.contactNameTextView.setText(user.getFirstName() + " " + user.getLastName());
-        holder.binding.emailTextView.setText(user.getEmail());
-        Glide.with(holder.itemView.getContext())
-                .load(user.getImageUrl())
-                .into(holder.binding.profileImageView);
+        holder.bind(user);
     }
 
     @Override
@@ -44,9 +42,31 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemContactBinding binding;
 
-        public ViewHolder(ItemContactBinding binding) {
+        public ViewHolder(ItemContactBinding binding, OnRecycleViewItemClickListener onRecycleViewItemClickListener) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.editContactButton.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    onRecycleViewItemClickListener.onEditClick(position);
+                }
+            });
+
+            binding.deleteContactButton.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    onRecycleViewItemClickListener.onDeleteClick(position);
+                }
+            });
+        }
+
+        public void bind(User user) {
+            binding.contactNameTextView.setText(user.getFirstName() + " " + user.getLastName());
+            binding.emailTextView.setText(user.getEmail());
+            Glide.with(binding.getRoot().getContext())
+                    .load(user.getImageUrl())
+                    .into(binding.profileImageView);
         }
     }
 }
