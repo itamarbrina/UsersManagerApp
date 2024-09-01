@@ -85,7 +85,7 @@ public class DashboardFragment extends Fragment {
 
     private void showEditUserDialog(int position) {
         DialogEditUserBinding dialogBinding = DialogEditUserBinding.inflate(getLayoutInflater());
-        User user = null;
+        User user;
         if (position == -1) {
             dialogBinding.editUserHeader.setText(getText(R.string.add_user));
             user = new User();
