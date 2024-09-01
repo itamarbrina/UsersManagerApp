@@ -21,6 +21,8 @@ import com.example.usersmanagerapp.databinding.FragmentDashboardBinding;
 import com.example.usersmanagerapp.models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
@@ -104,36 +106,21 @@ public class DashboardFragment extends Fragment {
         User finalUser = user;
         dialogBinding.buttonSaveUser.setOnClickListener(v -> {
 
-            dialogBinding.editTextFirstNameLayout.setError(null);
-            dialogBinding.editTextLastNameLayout.setError(null);
-            dialogBinding.editTextEmailLayout.setError(null);
-            dialogBinding.editTextImageLayout.setError(null);
+            Map<String, String> errorMessages = new HashMap<>();
 
-            finalUser.setImageUrl(Objects.requireNonNull(dialogBinding.editTextImage.getText()).toString().trim());
-            finalUser.setFirstName(Objects.requireNonNull(dialogBinding.editTextFirstName.getText()).toString().trim());
-            finalUser.setLastName(Objects.requireNonNull(dialogBinding.editTextLastName.getText()).toString().trim());
-            finalUser.setEmail(Objects.requireNonNull(dialogBinding.editTextEmail.getText()).toString().trim());
-            boolean isValid = true;
+            finalUser.setFirstName(dialogBinding.editTextFirstName.getText().toString().trim());
+            finalUser.setLastName(dialogBinding.editTextLastName.getText().toString().trim());
+            finalUser.setEmail(dialogBinding.editTextEmail.getText().toString().trim());
+            finalUser.setImageUrl(dialogBinding.editTextImage.getText().toString().trim());
 
-            if (finalUser.getFirstName().isEmpty()) {
-                dialogBinding.editTextFirstNameLayout.setError("First name is required");
-                isValid = false;
-            }
+            // Use the ViewModel to validate the user
+            boolean isValid = dashboardViewModel.isUserValid(finalUser, errorMessages);
 
-            if (finalUser.getLastName().isEmpty()) {
-                dialogBinding.editTextLastNameLayout.setError("Last name is required");
-                isValid = false;
-            }
+            // Show errors in UI if present
+            dialogBinding.editTextFirstNameLayout.setError(errorMessages.get("firstNameError"));
+            dialogBinding.editTextLastNameLayout.setError(errorMessages.get("lastNameError"));
+            dialogBinding.editTextEmailLayout.setError(errorMessages.get("emailError"));
 
-            if (finalUser.getEmail().isEmpty()) {
-                dialogBinding.editTextEmailLayout.setError("Email is required");
-                isValid = false;
-            }
-
-            if (finalUser.getImageUrl().isEmpty()) {
-                dialogBinding.editTextImageLayout.setError("Image URL is required");
-                isValid = false;
-            }
 
             if (isValid) {
                 dashboardViewModel.insertUser(finalUser);

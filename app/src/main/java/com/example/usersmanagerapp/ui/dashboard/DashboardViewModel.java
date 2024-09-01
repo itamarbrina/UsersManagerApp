@@ -12,6 +12,7 @@ import com.example.usersmanagerapp.models.User;
 import com.example.usersmanagerapp.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class DashboardViewModel extends AndroidViewModel {
 
@@ -52,4 +53,28 @@ public class DashboardViewModel extends AndroidViewModel {
         progressBarLiveData.setValue(visibility);
     }
 
+    public boolean isUserValid(User user, Map<String, String> errorMessages) {
+        boolean isValid = true;
+
+        if (user.getFirstName().isEmpty()) {
+            errorMessages.put("firstNameError", "First name is required");
+            isValid = false;
+        }
+
+        if (user.getLastName().isEmpty()) {
+            errorMessages.put("lastNameError", "Last name is required");
+            isValid = false;
+        }
+
+        if (user.getEmail().isEmpty()) {
+            errorMessages.put("emailError", "Email is required");
+            isValid = false;
+        }
+        if (user.getImageUrl().isEmpty()) {
+            user.setImageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcyI9Cvp53aaP9XeRn-ZKbJDH2QaWC72O26A&s");
+        }
+
+        return isValid;
+    }
 }
+
