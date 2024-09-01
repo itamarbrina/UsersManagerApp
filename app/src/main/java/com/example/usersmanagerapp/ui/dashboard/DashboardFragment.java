@@ -1,5 +1,6 @@
 package com.example.usersmanagerapp.ui.dashboard;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.usersmanagerapp.adapter.OnRecycleViewItemClickListener;
 import com.example.usersmanagerapp.adapter.UserAdapter;
+import com.example.usersmanagerapp.databinding.DialogEditUserBinding;
 import com.example.usersmanagerapp.databinding.FragmentDashboardBinding;
 import com.example.usersmanagerapp.models.User;
 
@@ -50,7 +52,7 @@ public class DashboardFragment extends Fragment {
         userAdapter = new UserAdapter(userArrayList, new OnRecycleViewItemClickListener() {
             @Override
             public void onEditClick(int position) {
-                dashboardViewModel.insertUser(userArrayList.get(position));
+                showEditUserDialog(position);
                 userAdapter.notifyItemChanged(position);
             }
 
@@ -75,6 +77,62 @@ public class DashboardFragment extends Fragment {
                 userAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void showEditUserDialog(int position) {
+        User user = userArrayList.get(position);
+        DialogEditUserBinding dialogBinding = DialogEditUserBinding.inflate(getLayoutInflater());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogBinding.getRoot());
+
+        dialogBinding.editTextImage.setText(user.getImageUrl());
+        dialogBinding.editTextFirstName.setText(user.getFirstName());
+        dialogBinding.editTextLastName.setText(user.getLastName());
+        dialogBinding.editTextEmail.setText(user.getEmail());
+
+        AlertDialog dialog = builder.create();
+
+        dialogBinding.buttonSaveUser.setOnClickListener(v -> {
+
+            dialogBinding.editTextFirstNameLayout.setError(null);
+            dialogBinding.editTextLastNameLayout.setError(null);
+            dialogBinding.editTextEmailLayout.setError(null);
+            dialogBinding.editTextImageLayout.setError(null);
+
+            user.setImageUrl(dialogBinding.editTextImage.getText().toString().trim());
+            user.setFirstName(dialogBinding.editTextFirstName.getText().toString().trim());
+            user.setLastName(dialogBinding.editTextLastName.getText().toString().trim());
+            user.setEmail(dialogBinding.editTextEmail.getText().toString().trim());
+            boolean isValid = true;
+
+            if (user.getFirstName().isEmpty()) {
+                dialogBinding.editTextFirstNameLayout.setError("First name is required");
+                isValid = false;
+            }
+
+            if (user.getLastName().isEmpty()) {
+                dialogBinding.editTextLastNameLayout.setError("Last name is required");
+                isValid = false;
+            }
+
+            if (user.getEmail().isEmpty()) {
+                dialogBinding.editTextEmailLayout.setError("Email is required");
+                isValid = false;
+            }
+
+            if (user.getImageUrl().isEmpty()) {
+                dialogBinding.editTextImageLayout.setError("Image URL is required");
+                isValid = false;
+            }
+
+            if (isValid) {
+                dashboardViewModel.insertUser(user);
+                userAdapter.notifyItemChanged(userArrayList.indexOf(user));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override

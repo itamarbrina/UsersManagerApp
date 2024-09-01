@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/md_theme_primary" />
 
     <Button
         android:id="@+id/button_show_users"

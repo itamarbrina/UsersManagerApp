@@ -1,0 +1,8 @@
+<resources>
+    <string name="edit_user">Edit User</string>
+    <string name="first_name">User\'s First Name</string>
+    <string name="last_name">User\'s Last Name</string>
+    <string name="email">User\'s Email</string>
+    <string name="image">URL Of User\'s Image</string>
+    <string name="save_user">Save</string>
+</resources>

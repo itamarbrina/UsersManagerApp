@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,58 +19,83 @@
         android:textColor="@color/md_theme_primary" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/firstNameLayout"
+        android:id="@+id/editTextFirstNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:hint="@string/first_name">
+        android:hint="@string/first_name"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/firstName"
+            android:id="@+id/editTextFirstName"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/md_theme_primaryContainer"
+            android:inputType="textPersonName"
             android:textColor="@color/md_theme_onPrimaryContainer" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lastNameLayout"
+        android:id="@+id/editTextLastNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:hint="@string/last_name">
+        android:hint="@string/last_name"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lastName"
+            android:id="@+id/editTextLastName"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/md_theme_primaryContainer"
+            android:inputType="textPersonName"
             android:textColor="@color/md_theme_onPrimaryContainer" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailLayout"
+        android:id="@+id/editTextEmailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:hint="@string/email">
+        android:hint="@string/email"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
+            android:id="@+id/editTextEmail"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/md_theme_primaryContainer"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/md_theme_onPrimaryContainer" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextImageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:hint="@string/image"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextImage"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/md_theme_primaryContainer"
+            android:inputType="textWebEditText"
             android:textColor="@color/md_theme_onPrimaryContainer" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/saveUser"
+        android:id="@+id/buttonSaveUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -1,19 +1,23 @@
 package com.example.usersmanagerapp.ui.edit_user;
 
-import androidx.lifecycle.LiveData;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class EditUserViewModel extends ViewModel {
+import com.example.usersmanagerapp.models.User;
+import com.example.usersmanagerapp.repositories.UserRepository;
 
-    private final MutableLiveData<String> mText;
+import java.util.List;
 
-    public EditUserViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
-    }
+public class EditUserViewModel extends AndroidViewModel {
+    private final MutableLiveData<List<User>> usersLiveData;
+    private final UserRepository userRepository;
 
-    public LiveData<String> getText() {
-        return mText;
+    public EditUserViewModel(@NonNull Application application) {
+        super(application);
+        this.userRepository = new UserRepository(application.getApplicationContext());
+        this.usersLiveData = new MutableLiveData<>();
     }
 }
