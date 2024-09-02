@@ -113,10 +113,8 @@ public class DashboardFragment extends Fragment {
             finalUser.setEmail(Objects.requireNonNull(dialogBinding.editTextEmail.getText()).toString().trim());
             finalUser.setImageUrl(Objects.requireNonNull(dialogBinding.editTextImage.getText()).toString().trim());
 
-            // Use the ViewModel to validate the user
             boolean isValid = dashboardViewModel.isUserValid(finalUser, errorMessages);
 
-            // Show errors in UI if present
             dialogBinding.editTextFirstNameLayout.setError(errorMessages.get("firstNameError"));
             dialogBinding.editTextLastNameLayout.setError(errorMessages.get("lastNameError"));
             dialogBinding.editTextEmailLayout.setError(errorMessages.get("emailError"));
