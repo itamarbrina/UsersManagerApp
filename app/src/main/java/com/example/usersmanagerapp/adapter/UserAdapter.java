@@ -62,7 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
 
         public void bind(User user) {
-            binding.contactNameTextView.setText(user.getFirstName() + " " + user.getLastName());
+            binding.contactNameTextView.setText(user.getFullName());
             binding.emailTextView.setText(user.getEmail());
             Glide.with(binding.getRoot().getContext())
                     .load(user.getImageUrl())
