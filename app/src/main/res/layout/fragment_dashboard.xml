@@ -21,14 +21,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <!-- FloatingActionButton stays above the RecyclerView -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddUser"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_user_btn"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_plus" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

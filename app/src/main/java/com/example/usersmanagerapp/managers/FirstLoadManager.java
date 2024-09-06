@@ -7,7 +7,7 @@ public class FirstLoadManager {
     private static final String PREF_NAME = "user_prefs";
     private static final String KEY_FIRST_LOAD = "first_load";
 
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public FirstLoadManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

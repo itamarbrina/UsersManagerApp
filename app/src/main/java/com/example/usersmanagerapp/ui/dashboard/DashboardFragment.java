@@ -2,6 +2,7 @@ package com.example.usersmanagerapp.ui.dashboard;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +20,10 @@ import com.example.usersmanagerapp.R;
 import com.example.usersmanagerapp.adapter.OnRecycleViewItemClickListener;
 import com.example.usersmanagerapp.adapter.UserAdapter;
 import com.example.usersmanagerapp.databinding.DialogEditUserBinding;
+import com.example.usersmanagerapp.databinding.DialogErrorBinding;
 import com.example.usersmanagerapp.databinding.FragmentDashboardBinding;
 import com.example.usersmanagerapp.models.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,20 +38,24 @@ public class DashboardFragment extends Fragment {
     private RecyclerView recyclerView;
     private DashboardViewModel dashboardViewModel;
     private UserAdapter userAdapter;
+    private NavController navController;
+    FloatingActionButton buttonAddUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        navController = NavHostFragment.findNavController(this);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerView;
-        binding.buttonAddUser.setOnClickListener(v -> showEditUserDialog(-1));
-
+        buttonAddUser = binding.buttonAddUser;
+        buttonAddUser.setOnClickListener(v -> showEditUserDialog(-1));
 
         setupRecyclerView();
+        dashboardViewModel.fetchUsers();
         observeViewModel();
 
         return root;
@@ -78,7 +87,14 @@ public class DashboardFragment extends Fragment {
             if (usersList != null) {
                 userArrayList.clear();
                 userArrayList.addAll(usersList);
+                buttonAddUser.setVisibility(View.VISIBLE);
                 userAdapter.notifyDataSetChanged();
+            }
+        });
+
+        dashboardViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) {
+                showErrorDialog(errorMessage);
             }
         });
     }
@@ -132,6 +148,27 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        dialog.show();
+    }
+
+    private void showErrorDialog(String errorMessage) {
+        DialogErrorBinding dialogBinding = DialogErrorBinding.inflate(getLayoutInflater());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogBinding.getRoot());
+
+        dialogBinding.errorMessage.setText(errorMessage);
+
+        AlertDialog dialog = builder.create();
+
+        dialogBinding.retryButton.setOnClickListener(v -> {
+            Log.d("DashboardFragment", "showEditUserDialog: retry button clicked");
+            dashboardViewModel.fetchUsers();
+            dialog.dismiss();
+        });
+        dialogBinding.backToHomeButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            navController.popBackStack();
+        });
         dialog.show();
     }
 

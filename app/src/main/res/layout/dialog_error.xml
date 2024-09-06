@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.DashboardFragment">
+    <!-- TODO check the dimension for larger screens -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_error"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/md_theme_error" />
+
+    <TextView
+        android:id="@+id/errorMessage"
+        style="?textAppearanceBodyLarge"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/retryButton"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/retry" />
+
+    <Button
+        android:id="@+id/backToHomeButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/back_to_home" />
+</LinearLayout>

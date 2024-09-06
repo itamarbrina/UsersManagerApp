@@ -18,6 +18,7 @@ public class DashboardViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Integer> progressBarLiveData;
     private final MutableLiveData<List<User>> usersLiveData;
+    private final MutableLiveData<String> errorMessage;
     private final UserRepository userRepository;
 
     public DashboardViewModel(@NonNull Application application) {
@@ -25,16 +26,33 @@ public class DashboardViewModel extends AndroidViewModel {
         this.userRepository = new UserRepository(application.getApplicationContext());
         this.usersLiveData = new MutableLiveData<>();
         this.progressBarLiveData = new MutableLiveData<>();
+        this.errorMessage = new MutableLiveData<>();
     }
 
     public LiveData<List<User>> getUsersLiveData() {
-        setProgressBarLiveData(View.VISIBLE);
-        userRepository.getUsers().observeForever(users -> {
-            usersLiveData.setValue(users);
-            setProgressBarLiveData(View.GONE);
-        });
-
         return usersLiveData;
+    }
+
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    public LiveData<Integer> getProgressBarLiveData() {
+        return progressBarLiveData;
+    }
+
+    public void fetchUsers() {
+        errorMessage.setValue(null);
+        setProgressBarLiveData(View.VISIBLE);
+
+        userRepository.getUsers().observeForever(users -> {
+            setProgressBarLiveData(View.GONE);
+            if (users != null) {
+                usersLiveData.setValue(users);
+            } else {
+                errorMessage.setValue("An error occurred while fetching users");
+            }
+        });
     }
 
     public void insertUser(User user) {
@@ -43,10 +61,6 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void deleteUser(User user) {
         userRepository.deleteUser(user);
-    }
-
-    public LiveData<Integer> getProgressBarLiveData() {
-        return progressBarLiveData;
     }
 
     public void setProgressBarLiveData(Integer visibility) {

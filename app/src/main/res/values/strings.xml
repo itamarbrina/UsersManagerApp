@@ -7,4 +7,7 @@
     <string name="add_user_btn">Add User</string>
     <string name="welcome">Welcome to users manager app!</string>
     <string name="show_users">Start Working</string>
+    <string name="title_error">Error!</string>
+    <string name="retry">Retry</string>
+    <string name="back_to_home">back to home</string>
 </resources>
